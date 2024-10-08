@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario.model');
+const secret_key = 'mysecretkey';
 
 //Mostrar todos los Usuarios
 exports.getAllUsuarios = async (req, res) => {
