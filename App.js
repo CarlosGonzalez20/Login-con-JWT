@@ -1,11 +1,25 @@
 const mongoose = require('mongoose');
 const Usuario = require('./model/usuario.model');
+const express = require('express');
+const app = express();
+const port = 3001;
 
-mongoose.connect('mongodb://127.0.0.1:27017/prueba1').then(() => {
-    console.log('Conectado a la base de datos');
-}).catch((error) => {
-    console.log('Error al conectarse a la base de datos');
-    console.log(error);
+app.use(express.json());
+const usuarioRoutes = require('./routes/usuarios.routes');
+app.use('/api', usuarioRoutes);
+
+const homeRoute = require('./homeRoute');
+app.get('/', homeRoute);
+
+app.listen(port, () => {
+    // Inicia el servidor y escucha en el puerto definido.
+    console.log(`Example app listening at http://localhost:${port}`);
+});
+
+mongoose.connect('mongodb://localhost:27017/prueba1').then(() => {
+    console.log('Database connected');
+}).catch((err) => {
+    console.log(err); 
 });
 
 // CREAR UN REGISTRO EN MONGODB
@@ -39,10 +53,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/prueba1').then(() => {
 
 // ELIMINAR UN REGISTRO EN MONGODB
 
-Usuario.deleteOne({nombre: 'Luis'}).then((usuario) => {
-    console.log('Usuario eliminado');
-    console.log(usuario);
-}).catch((error) => {
-    console.log('Error al eliminar el usuario');
-    console.log(error);
-});
+// Usuario.deleteOne({nombre: 'Luis'}).then((usuario) => {
+//     console.log('Usuario eliminado');
+//     console.log(usuario);
+// }).catch((error) => {
+//     console.log('Error al eliminar el usuario');
+//     console.log(error);
+// });

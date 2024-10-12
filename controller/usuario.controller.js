@@ -1,5 +1,6 @@
-const Usuario = require('../models/usuario.model');
+const Usuario = require('../model/usuario.model');
 const secret_key = 'mysecretkey';
+const jwt = require('jsonwebtoken');
 
 //Mostrar todos los Usuarios
 exports.getAllUsuarios = async (req, res) => {
@@ -52,4 +53,18 @@ exports.autenticarUsuario = async (req, res) => {
     const token = jwt.sign({ nombre: usuario.nombre, email: usuario.email, rol: usuario.rol }, secret_key, {expiresIn: '1h'});
     console.log("token creado: " + token);
     res.status(200).json({ token });
+}
+
+exports.cambiarRolUsuario = async (req, res) => {
+    const { rol } = req.body;
+    const { id } = req.params;
+    try {
+        const usuarioUpdate = await Usuario.findByIdAndUpdate(id, { rol }, { new: true});
+        if (!usuarioUpdate) return res.status(404).send({ message: 'No se encontró el usuario' });
+        console.log("cambiarRolUsuario exitosamente " + id);
+        res.status(200).json(usuarioUpdate);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: 'Error al cambiar el rol del usuario' });
+    }
 }
