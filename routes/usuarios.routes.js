@@ -6,7 +6,7 @@ const { checkRole } = require('../middleware/auth');
 // mostrar todos los usuarios en MongoDB
 router.get('/usuarios', checkRole('usuario', 'admin'), getAllUsuarios);
 // creación de un nuevo usuario
-router.post('/nuevoUsuario', checkRole('admin'), addUsuario);
+router.post('/nuevoUsuario', addUsuario);
 // buscar un usuario
 router.get('/usuario/:id', checkRole('usuario', 'admin'), getUsuarioID);
 // actualizar un usuario

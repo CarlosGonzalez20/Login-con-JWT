@@ -8,7 +8,7 @@ function checkRole(rol) {
         try {
             const decoded = jwt.verify(token, secret_key);
             req.decoded = decoded;
-            if (decoded.rol !== rol) return res.status(403).send({ message: 'No tienes permisos para acceder a esta ruta' });
+            if (decoded.rol == rol) return res.status(403).send({ message: 'No tienes permisos para acceder a esta ruta' });
             req.user = decoded;
             next();
         } catch (err) {
