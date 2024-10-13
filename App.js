@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const Usuario = require('./model/usuario.model');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3001;
 
 app.use(express.json());
+app.use(cors());
 const usuarioRoutes = require('./routes/usuarios.routes');
 app.use('/api', usuarioRoutes);
 
