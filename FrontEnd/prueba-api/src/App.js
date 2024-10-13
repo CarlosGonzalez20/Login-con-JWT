@@ -11,9 +11,9 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Bienvenido a nuestra API</h1>
+        <h1>Bienvenido a nuestra API de usuarios</h1>
       </header>
-      <p>Explora las funcionalidades de nuestra API. Aquí puedes gestionar productos, obtener información detallada y mucho más.</p>
+      <p>Explora las funcionalidades de nuestra API. Aquí puedes gestionar usuarios, obtener información detallada y mucho más.</p>
       <p>Visita nuestras rutas disponibles:</p>
 
       <div className="buttons">
