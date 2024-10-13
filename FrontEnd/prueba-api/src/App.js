@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
                 <button><a href="http://localhost:3001/api/borrarUsuario">Borrar usuario</a></button>
             </div>
             <footer>
-                <p>&copy; 2024 Nuestra API de Productos</p>
+                <p>&copy; 2024 Nuestra API de Usuarios</p>
             </footer>
         </body>
     </div>
