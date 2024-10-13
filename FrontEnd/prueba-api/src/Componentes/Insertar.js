@@ -1,5 +1,6 @@
 // InsertarUsuario.js
 import React, { useState } from 'react';
+import './insertar.css';
 
 const InsertarUsuario = () => {
     
@@ -40,9 +41,9 @@ const InsertarUsuario = () => {
   return (
     <div>
       <h2>Insertar Nuevo Usuario</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nombre:</label>
+      <form onSubmit={handleSubmit} className='form-group'>
+        <div className='contenedor'>
+          <label className='form-label'>Nombre:</label>
           <input
             type="text"
             value={nombre}
@@ -50,8 +51,8 @@ const InsertarUsuario = () => {
             required
           />
         </div>
-        <div>
-          <label>Edad:</label>
+        <div className='contenedor'>
+          <label className='form-label'>Edad:</label>
           <input
             type="number"
             value={edad}
@@ -59,8 +60,8 @@ const InsertarUsuario = () => {
             required
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className='contenedor'>
+          <label className='form-label'>Email:</label>
           <input
             type="email"
             value={email}

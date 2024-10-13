@@ -19,9 +19,7 @@ function App() {
       <div className="buttons">
         <button onClick={() => handleViewChange('usuarios')}>Ver todos los usuarios</button>
         <button><a href="http://localhost:3001/api/autenticar">Login</a></button>
-        <button onClick={() => handleViewChange('insertar')}>Insertar nuevo usuario</button><br />
-        <button><a href="http://localhost:3001/api/actualizarUsuario">Actualizar usuario</a></button>
-        <button><a href="http://localhost:3001/api/borrarUsuario">Borrar usuario</a></button>
+        <button onClick={() => handleViewChange('insertar')}>Insertar nuevo usuario</button><br/>
       </div>
 
       {/* Renderizado condicional de las vistas */}
