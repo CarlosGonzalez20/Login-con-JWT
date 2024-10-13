@@ -4,15 +4,15 @@ const router = express.Router();
 const { checkRole } = require('../middleware/auth');
 
 // mostrar todos los usuarios en MongoDB
-router.get('/usuarios', checkRole('usuario', 'admin'), getAllUsuarios);
+router.get('/usuarios', getAllUsuarios);
 // creación de un nuevo usuario
 router.post('/nuevoUsuario', addUsuario);
 // buscar un usuario
-router.get('/usuario/:id', checkRole('usuario', 'admin'), getUsuarioID);
+router.get('/usuario/:id', getUsuarioID);
 // actualizar un usuario
-router.put('/actualizarUsuario/:id', checkRole('admin'), updateUsuario);
+router.put('/actualizarUsuario/:id', updateUsuario);
 // borrar un usuario
-router.delete('/borrarUsuario/:id', checkRole('admin'), deleteUsuario);
+router.delete('/borrarUsuario/:id', deleteUsuario);
 // autenticar usuario
 router.post('/autenticar', autenticarUsuario);
 // cambiar rol de usuario
