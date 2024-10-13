@@ -1,14 +1,12 @@
-// App.js
 import './App.css';
 import { useState } from 'react';
-import Usuarios from './Componentes/Usuarios'; // Asegúrate de que la ruta sea correcta
+import Usuarios from './Componentes/Usuarios';
+import InsertarUsuario from './Componentes/Insertar';
 
 function App() {
-  const [showUsuarios, setShowUsuarios] = useState(false); // Estado para mostrar la lista de usuarios
+  const [view, setView] = useState(null); // Controla qué vista se muestra
 
-  const handleShowUsuarios = () => {
-    setShowUsuarios(true); // Cambia el estado para mostrar usuarios
-  };
+  const handleViewChange = (newView) => setView(newView); // Cambia la vista actual
 
   return (
     <div className="App">
@@ -17,17 +15,19 @@ function App() {
       </header>
       <p>Explora las funcionalidades de nuestra API. Aquí puedes gestionar productos, obtener información detallada y mucho más.</p>
       <p>Visita nuestras rutas disponibles:</p>
+
       <div className="buttons">
-        <button onClick={handleShowUsuarios}>Ver todos los usuarios</button>
+        <button onClick={() => handleViewChange('usuarios')}>Ver todos los usuarios</button>
         <button><a href="http://localhost:3001/api/autenticar">Login</a></button>
-        <button><a href="http://localhost:3001/api/nuevoUsuario">Insertar nuevo usuario</a></button><br />
+        <button onClick={() => handleViewChange('insertar')}>Insertar nuevo usuario</button><br />
         <button><a href="http://localhost:3001/api/actualizarUsuario">Actualizar usuario</a></button>
         <button><a href="http://localhost:3001/api/borrarUsuario">Borrar usuario</a></button>
       </div>
-      
-      {/* Condicional para mostrar el componente Usuarios */}
-      {showUsuarios && <Usuarios />}
-      
+
+      {/* Renderizado condicional de las vistas */}
+      {view === 'usuarios' && <Usuarios />}
+      {view === 'insertar' && <InsertarUsuario />}
+
       <footer>
         <p>&copy; 2024 Nuestra API de Usuarios</p>
       </footer>

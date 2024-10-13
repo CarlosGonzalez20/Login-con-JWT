@@ -1,58 +1,73 @@
 // Usuarios.js
 import React, { useState, useEffect } from 'react';
 
-const Usuarios = ({ onFetchComplete }) => {
+const Usuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleFetchUsuarios = () => {
+  // Obtener usuarios desde la API
+  const fetchUsuarios = async () => {
     setLoading(true);
     setError(null);
 
-    fetch('http://localhost:3001/api/usuarios')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error en la solicitud');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setUsuarios(data);
-        if (onFetchComplete) onFetchComplete(); // Llama a la función de callback si se proporciona
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      const response = await fetch('http://localhost:3001/api/usuarios');
+      if (!response.ok) throw new Error('Error al obtener los usuarios');
+      const data = await response.json();
+      setUsuarios(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Efecto para cargar usuarios cuando se monta el componente
+  // Eliminar usuario por ID
+  const handleDeleteUsuario = async (id) => {
+    if (window.confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+      try {
+        const response = await fetch(`http://localhost:3001/api/usuarios/${id}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) throw new Error('No se pudo eliminar el usuario');
+        alert('Usuario eliminado exitosamente');
+
+        // Actualiza la lista filtrando el usuario eliminado
+        setUsuarios(usuarios.filter((usuario) => usuario._id !== id));
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    }
+  };
+
+  // Llamada inicial para obtener usuarios al montar el componente
   useEffect(() => {
-    handleFetchUsuarios(); // Llama a la función para obtener usuarios al cargar el componente
+    fetchUsuarios();
   }, []);
 
   return (
     <div>
       {loading && <p>Cargando usuarios...</p>}
       {error && <p>Error: {error}</p>}
-      {usuarios.length > 0 && (
+      {usuarios.length > 0 ? (
         <div>
           <h2>Lista de Usuarios:</h2>
           <ul>
-            {usuarios.map(usuario => (
-              <li key={usuario.id}>
-                <p>Nombre: {usuario.nombre}</p>
-                <p>Email: {usuario.email}</p>
-                <p>Edad: {usuario.edad}</p>
-                <p>rol: {usuario.rol}</p>
-                {/* Agrega más campos según tu estructura de datos */}
+            {usuarios.map((usuario) => (
+              <li key={usuario._id}>
+                <p><strong>Nombre:</strong> {usuario.nombre}</p>
+                <p><strong>Email:</strong> {usuario.email}</p>
+                <button onClick={() => handleDeleteUsuario(usuario._id)}>
+                  Borrar
+                </button>
               </li>
             ))}
           </ul>
         </div>
+      ) : (
+        <p>No hay usuarios disponibles.</p>
       )}
     </div>
   );
