@@ -1,4 +1,3 @@
-// Usuarios.js
 import React, { useState, useEffect } from 'react';
 
 const Usuarios = () => {
@@ -25,9 +24,9 @@ const Usuarios = () => {
 
   // Eliminar usuario por ID
   const handleDeleteUsuario = async (id) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+    if (window.confirm(`¿Estás seguro de que deseas eliminar al usuario con ID: ${id}?`)) {
       try {
-        const response = await fetch(`http://localhost:3001/api/usuarios/${id}`, {
+        const response = await fetch(`http://localhost:3001/api/borrarUsuario/${id}`, {
           method: 'DELETE',
         });
 
